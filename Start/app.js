@@ -110,36 +110,64 @@
 
 // 11. Obiekty state i props na przykładzie listy zakupów
 
-class ShoppingList extends React.Component {
-  state = {
-    items1: 'ogórki',
-    items2: 'sok',
-    items3: 'cos do picia',
-  };
+// class ShoppingList extends React.Component {
+//   state = {
+//     items1: 'ogórki',
+//     items2: 'sok',
+//     items3: 'cos do picia',
+//   };
 
+//   render() {
+//     return (
+//       <>
+//         <h1>Lista zakupów</h1>
+//         <ul>
+//           <ItemList name={this.state.items1} example={2+2} />
+//           <ItemList name={this.state.items2} />
+//           <ItemList name={this.state.items3} />
+//         </ul>
+//       </>
+//     );
+//   }
+// }
+
+// class ItemList extends React.Component {
+//   render() {
+//     return (
+//       <li>
+//         {this.props.name} - {this.props.example}
+//       </li>
+//     );
+//   }
+// }
+
+// ReactDOM.render(<ShoppingList />, document.getElementById('root'));
+
+// ______________________________________________________________________
+// ______________________________________________________________________
+// ______________________________________________________________________
+
+// 12. Mini-aplikacja "Add sign" dodająca znak do tekstu po kliknięciu przycisku - cz.1
+
+class App extends React.Component {
+  state = {
+    text: '',
+  };
+  handleClick = () => {
+    const letter = 'a';
+    this.setState({
+      text: this.state.text + letter,
+    });
+    // console.log(this.state.text);
+  };
   render() {
     return (
       <>
-        <h1>Lista zakupów</h1>
-        <ul>
-          <ItemList name={this.state.items1} example={2+2} />
-          <ItemList name={this.state.items2} />
-          <ItemList name={this.state.items3} />
-        </ul>
+        <button onClick={this.handleClick}>Dodaj "A"</button>
+        <h1>{this.state.text}</h1>
       </>
     );
   }
 }
 
-
-class ItemList extends React.Component {
-  render() {
-    return (
-      <li>
-        {this.props.name} - {this.props.example}
-      </li>
-    );
-  }
-}
-
-ReactDOM.render(<ShoppingList />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

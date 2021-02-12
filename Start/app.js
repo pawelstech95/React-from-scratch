@@ -22,6 +22,8 @@
 // )
 
 // *********************************************************
+// ______________________________________________________________________
+// ______________________________________________________________________
 
 // const header = <h1 className="title">Witaj na stronie!</h1>;
 
@@ -57,45 +59,87 @@
 // ReactDOM.render(app, document.getElementById('root'));
 
 // *****************************************
+// ______________________________________________________________________
+// ______________________________________________________________________
 
 //komponent funkcyjny, bezstanowy
 
-const Header = () => {
-  return (
-    <div>
-      <h1>Witaj na stronie</h1>
-    </div>
-  );
-};
+// const Header = () => {
+//   return (
+//     <div>
+//       <h1>Witaj na stronie</h1>
+//     </div>
+//   );
+// };
 
-//komponent klasowy, stanowy
+// //komponent klasowy, stanowy
 
-class Blog extends React.Component {
-  // state = {
-  //   number: 0,
-  // };
+// class Blog extends React.Component {
+//   // state = {
+//   //   number: 0,
+//   // };
+//   render() {
+//     return (
+//       <section>
+//         <h2>Artykół</h2>
+//         <p>
+//           Contrary to popular belief, Lorem Ipsum is not simply random text. It
+//           has roots in a piece of classical Latin literature from 45 BC, making
+//           it over 2000 years old. Richard McClintock, a Latin professor at
+//           Hampden-Sydney College in Virginia, looked up one of the more obscure
+//           Latin words, consectetur{' '}
+//         </p>
+//       </section>
+//     );
+//   }
+// }
+// const App = () => {
+//   return (
+//     <>
+//       <Header />
+//       <Blog />
+//     </>
+//   );
+// };
+
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// ______________________________________________________________________
+// ______________________________________________________________________
+// ______________________________________________________________________
+
+// 11. Obiekty state i props na przykładzie listy zakupów
+
+class ShoppingList extends React.Component {
+  state = {
+    items1: 'ogórki',
+    items2: 'sok',
+    items3: 'cos do picia',
+  };
+
   render() {
     return (
-      <section>
-        <h2>Artykół</h2>
-        <p>
-          Contrary to popular belief, Lorem Ipsum is not simply random text. It
-          has roots in a piece of classical Latin literature from 45 BC, making
-          it over 2000 years old. Richard McClintock, a Latin professor at
-          Hampden-Sydney College in Virginia, looked up one of the more obscure
-          Latin words, consectetur{' '}
-        </p>
-      </section>
+      <>
+        <h1>Lista zakupów</h1>
+        <ul>
+          <ItemList name={this.state.items1} example={2+2} />
+          <ItemList name={this.state.items2} />
+          <ItemList name={this.state.items3} />
+        </ul>
+      </>
     );
   }
 }
-const App = () => {
-  return (
-    <>
-      <Header />
-      <Blog />
-    </>
-  );
-};
 
-ReactDOM.render(<App />, document.getElementById('root'));
+
+class ItemList extends React.Component {
+  render() {
+    return (
+      <li>
+        {this.props.name} - {this.props.example}
+      </li>
+    );
+  }
+}
+
+ReactDOM.render(<ShoppingList />, document.getElementById('root'));

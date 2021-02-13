@@ -150,16 +150,27 @@
 // 12. Mini-aplikacja "Add sign" dodająca znak do tekstu po kliknięciu przycisku - cz.1
 
 class App extends React.Component {
-  state = {
-    text: '',
-  };
-  handleClick = () => {
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: '',
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+  // state = {
+  //   text: '',
+  // };
+  // handleClick = () => {
+  handleClick() {
     const letter = 'a';
-    this.setState({
-      text: this.state.text + letter,
-    });
+    // this.setState({
+    //   text: this.state.text + letter,
+    // });
     // console.log(this.state.text);
-  };
+    this.setState(() => ({
+      text: this.state.text + letter,
+    }));
+  }
   render() {
     return (
       <>

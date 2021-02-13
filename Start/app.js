@@ -149,33 +149,80 @@
 
 // 12. Mini-aplikacja "Add sign" dodająca znak do tekstu po kliknięciu przycisku - cz.1
 
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       text: '',
+//     };
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+//   // state = {
+//   //   text: '',
+//   // };
+//   // handleClick = () => {
+//   handleClick() {
+
+//     const number = Math.floor(Math.random() * 10)
+//     // const letter = 'a';
+//     // this.setState({
+//     //   text: this.state.text + letter,
+//     // });
+//     // console.log(this.state.text);
+//     this.setState(() => ({
+//       // text: this.state.text + letter,
+//       text: this.state.text + number,
+//     }));
+//   }
+//   render() {
+
+//     return (
+//       <>
+//         <button onClick={this.handleClick}>{this.props.btnTitle}</button>
+//         <PanelResult text={this.state.text} />
+//       </>
+//       // Props przekazujemy - ponizej props = powyzej
+//     );
+//   }
+// }
+
+// const PanelResult = (props) => {
+//   return <h1>{props.text}</h1>;
+// };
+
+// ReactDOM.render(<App  btnTitle='Dodaj Cyfre'/>, document.getElementById('root'));
+
+// ______________________________________________________________________
+// ______________________________________________________________________
+// ______________________________________________________________________
+
+// 15. Tekst pojawiający się po wpisaniu w input – cz. 1
+
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      text: '',
-    };
-    this.handleClick = this.handleClick.bind(this);
-  }
-  // state = {
-  //   text: '',
-  // };
-  // handleClick = () => {
-  handleClick() {
-    const letter = 'a';
-    // this.setState({
-    //   text: this.state.text + letter,
-    // });
-    // console.log(this.state.text);
-    this.setState(() => ({
-      text: this.state.text + letter,
-    }));
-  }
+  state = {
+    value: '',
+  };
+  handleInputChange = (e) => {
+    console.log(e.target.value);
+    this.setState({
+      value: e.target.value,
+    });
+  };
+  handleResetClick = () => {
+    this.setState({
+      value: '',
+    });
+  };
   render() {
     return (
       <>
-        <button onClick={this.handleClick}>Dodaj "A"</button>
-        <h1>{this.state.text}</h1>
+        <input
+          value={this.state.value}
+          onChange={this.handleInputChange}
+          type="text"
+        ></input>
+        <button onClick={this.handleResetClick}>RESET</button>
+        <h1 className="title">{this.state.value.toUpperCase()}</h1>
       </>
     );
   }

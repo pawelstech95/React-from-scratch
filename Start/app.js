@@ -198,34 +198,72 @@
 
 // 15. Tekst pojawiający się po wpisaniu w input – cz. 1
 
-class App extends React.Component {
-  state = {
-    value: '',
-  };
-  handleInputChange = (e) => {
-    console.log(e.target.value);
+// class App extends React.Component {
+//   state = {
+//     value: '',
+//   };
+//   handleInputChange = (e) => {
+//     console.log(e.target.value);
+//     this.setState({
+//       value: e.target.value,
+//     });
+//   };
+//   handleResetClick = () => {
+//     this.setState({
+//       value: '',
+//     });
+//   };
+//   render() {
+//     return (
+//       <>
+//         <input
+//           value={this.state.value}
+//           onChange={this.handleInputChange}
+//           type="text"
+//         ></input>
+//         <button onClick={this.handleResetClick}>RESET</button>
+//         <h1 className="title">{this.state.value.toUpperCase()}</h1>
+//       </>
+//     );
+//   }
+// }
+
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// ______________________________________________________________________
+// ______________________________________________________________________
+// ______________________________________________________________________
+
+// 17. Przycisk pokaż/ukryj - cz. 1
+
+class Message extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      messageIsActive: false,
+      // buttonValue: 'Pokaż'
+    };
+    this.handleButtonChange = this.handleButtonChange.bind(this);
+  }
+  handleButtonChange() {
+    // console.log('sss');
     this.setState({
-      value: e.target.value,
+      messageIsActive: !this.state.messageIsActive,
     });
-  };
-  handleResetClick = () => {
-    this.setState({
-      value: '',
-    });
-  };
+  }
   render() {
+    const text =
+      ' Lorem*100sdf kjsdf jojfs isoh sh dkj hklhds  lsdf kdfgk sfkd kds gfsdkf ds fksd fkd  dkffks fdksd fkshdsfks fksdsd dslkhs leytsygjhsgfkyt  hagf a glaL L GL l l lsdlghsd lg lsfdgdhgjsdflghs lkjhglkshglsh';
     return (
       <>
-        <input
-          value={this.state.value}
-          onChange={this.handleInputChange}
-          type="text"
-        ></input>
-        <button onClick={this.handleResetClick}>RESET</button>
-        <h1 className="title">{this.state.value.toUpperCase()}</h1>
+        <button onClick={this.handleButtonChange} type="text">
+          {this.state.messageIsActive ? 'Ukryj' : 'Pokaż'}
+        </button>
+        {/* <p>{this.state.messageIsActive && text}</p> */}
+        {this.state.messageIsActive ? <p>{text}</p> : null}
       </>
     );
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<Message />, document.getElementById('root'));

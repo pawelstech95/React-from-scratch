@@ -270,15 +270,19 @@
 
 // 19. Zliczanie kliknięć i wyświetlanie wyniku, cz. 1: przepływ danych w React
 
+// ______________________________________________________________________
+// ______________________________________________________________________
+// ______________________________________________________________________
+
 class Counter extends React.Component {
   state = {
     count: 0,
-    result: 0,
+    result: this.props.result,
   };
   // this.handleMathClick = this.handleMathClick.bind(this);
-  handleMathClick(type, number = 1) {
+  handleMathClick = (type, number = 1) => {
     // debugger
-    if (type === 'substraction') {
+    if (type === 'subtraction') {
       this.setState((prevState) => ({
         count: prevState.count + 1,
         result: prevState.result - number,
@@ -294,24 +298,24 @@ class Counter extends React.Component {
         result: prevState.result + number,
       }));
     }
-  }
+  };
   render() {
     return (
       <>
-        <button
+        {/* <button
           type=""
-          onClick={this.handleMathClick.bind(this, 'substraction', 1)}
+          onClick={this.handleMathClick.bind(this, 'subtraction', 1)}
         >
           -1
         </button>
         {/* ---------------------- */}
-        {/* <button onClick={() => this.handleMathClick('substraction' , 1)} type="">-1</button> */}
+        {/* <button onClick={() => this.handleMathClick('subtraction' , 1)} type="">-1</button> */}
         {/* -------------------------------------------------------------------------- */}
         {/* w tym przypadku bind wywoluje nam this ale tez mozemy uzyc argumentow type i number poniewaz
          **************  bind(this, type, number /poniewaz w handleMathclick podalismy dwa argumenty) ************** */}
         {/* -------------------------------------------------------------------------------------------- */}
         {/* ------------------------------ */}
-        <button onClick={this.handleMathClick.bind(this, 'reset')} type="">
+        {/* <button onClick={this.handleMathClick.bind(this, 'reset')} type="">
           Reset
         </button>
         <button
@@ -319,7 +323,26 @@ class Counter extends React.Component {
           onClick={this.handleMathClick.bind(this, 'addition', 1)}
         >
           +1
-        </button>
+        </button> */}
+
+        <MathButton
+          name="-1"
+          number="1"
+          type="subtraction"
+          click={this.handleMathClick}
+        />
+        <MathButton
+          name="reset"
+          // number="0"
+          type="reset"
+          click={this.handleMathClick}
+        />
+        <MathButton
+          name="+1"
+          number="1"
+          type="addition"
+          click={this.handleMathClick}
+        />
         <h1>Liczba kliknięć: {this.state.count}</h1>
         <h1>Wynik: {this.state.result}</h1>
       </>
@@ -327,4 +350,18 @@ class Counter extends React.Component {
   }
 }
 
-ReactDOM.render(<Counter />, document.getElementById('root'));
+const MathButton = (props) => {
+  const number = parseInt(props.number);
+  // console.log(props);
+  return (
+    <button onClick={() => props.click(props.type, number)}>
+      {props.name}
+    </button>
+  );
+};
+
+const startValue = 0;
+ReactDOM.render(
+  <Counter result={startValue} />,
+  document.getElementById('root')
+);

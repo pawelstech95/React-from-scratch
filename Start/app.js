@@ -236,34 +236,95 @@
 
 // 17. Przycisk pokaż/ukryj - cz. 1
 
-class Message extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      messageIsActive: false,
-      // buttonValue: 'Pokaż'
-    };
-    this.handleButtonChange = this.handleButtonChange.bind(this);
-  }
-  handleButtonChange() {
-    // console.log('sss');
-    this.setState({
-      messageIsActive: !this.state.messageIsActive,
-    });
+// class Message extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       messageIsActive: false,
+//       // buttonValue: 'Pokaż'
+//     };
+//     this.handleButtonChange = this.handleButtonChange.bind(this);
+//   }
+//   handleButtonChange() {
+//     // console.log('sss');
+//     this.setState({
+//       messageIsActive: !this.state.messageIsActive,
+//     });
+//   }
+//   render() {
+//     const text =
+//       ' Lorem*100sdf kjsdf jojfs isoh sh dkj hklhds  lsdf kdfgk sfkd kds gfsdkf ds fksd fkd  dkffks fdksd fkshdsfks fksdsd dslkhs leytsygjhsgfkyt  hagf a glaL L GL l l lsdlghsd lg lsfdgdhgjsdflghs lkjhglkshglsh';
+//     return (
+//       <>
+//         <button onClick={this.handleButtonChange} type="text">
+//           {this.state.messageIsActive ? 'Ukryj' : 'Pokaż'}
+//         </button>
+//         {/* <p>{this.state.messageIsActive && text}</p> */}
+//         {this.state.messageIsActive ? <p>{text}</p> : null}
+//       </>
+//     );
+//   }
+// }
+
+// ReactDOM.render(<Message />, document.getElementById('root'));
+
+// 19. Zliczanie kliknięć i wyświetlanie wyniku, cz. 1: przepływ danych w React
+
+class Counter extends React.Component {
+  state = {
+    count: 0,
+    result: 0,
+  };
+  // this.handleMathClick = this.handleMathClick.bind(this);
+  handleMathClick(type, number = 1) {
+    // debugger
+    if (type === 'substraction') {
+      this.setState((prevState) => ({
+        count: prevState.count + 1,
+        result: prevState.result - number,
+      }));
+    } else if (type === 'reset') {
+      this.setState((prevState) => ({
+        count: prevState.count + 1,
+        result: 0,
+      }));
+    } else if (type === 'addition') {
+      this.setState((prevState) => ({
+        count: prevState.count + 1,
+        result: prevState.result + number,
+      }));
+    }
   }
   render() {
-    const text =
-      ' Lorem*100sdf kjsdf jojfs isoh sh dkj hklhds  lsdf kdfgk sfkd kds gfsdkf ds fksd fkd  dkffks fdksd fkshdsfks fksdsd dslkhs leytsygjhsgfkyt  hagf a glaL L GL l l lsdlghsd lg lsfdgdhgjsdflghs lkjhglkshglsh';
     return (
       <>
-        <button onClick={this.handleButtonChange} type="text">
-          {this.state.messageIsActive ? 'Ukryj' : 'Pokaż'}
+        <button
+          type=""
+          onClick={this.handleMathClick.bind(this, 'substraction', 1)}
+        >
+          -1
         </button>
-        {/* <p>{this.state.messageIsActive && text}</p> */}
-        {this.state.messageIsActive ? <p>{text}</p> : null}
+        {/* ---------------------- */}
+        {/* <button onClick={() => this.handleMathClick('substraction' , 1)} type="">-1</button> */}
+        {/* -------------------------------------------------------------------------- */}
+        {/* w tym przypadku bind wywoluje nam this ale tez mozemy uzyc argumentow type i number poniewaz
+         **************  bind(this, type, number /poniewaz w handleMathclick podalismy dwa argumenty) ************** */}
+        {/* -------------------------------------------------------------------------------------------- */}
+        {/* ------------------------------ */}
+        <button onClick={this.handleMathClick.bind(this, 'reset')} type="">
+          Reset
+        </button>
+        <button
+          type=""
+          onClick={this.handleMathClick.bind(this, 'addition', 1)}
+        >
+          +1
+        </button>
+        <h1>Liczba kliknięć: {this.state.count}</h1>
+        <h1>Wynik: {this.state.result}</h1>
       </>
     );
   }
 }
 
-ReactDOM.render(<Message />, document.getElementById('root'));
+ReactDOM.render(<Counter />, document.getElementById('root'));

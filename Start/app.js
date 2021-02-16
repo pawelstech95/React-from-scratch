@@ -274,104 +274,163 @@
 // ______________________________________________________________________
 // ______________________________________________________________________
 
-class Counter extends React.Component {
+// class Counter extends React.Component {
+//   state = {
+//     count: 0,
+//     result: this.props.result,
+//   };
+//   // this.handleMathClick = this.handleMathClick.bind(this);
+//   handleMathClick = (type, number = 1) => {
+//     // debugger
+//     if (type === 'subtraction') {
+//       this.setState((prevState) => ({
+//         count: prevState.count + 1,
+//         result: prevState.result - number,
+//       }));
+//     } else if (type === 'reset') {
+//       this.setState((prevState) => ({
+//         count: prevState.count + 1,
+//         result: 0,
+//       }));
+//     } else if (type === 'addition') {
+//       this.setState((prevState) => ({
+//         count: prevState.count + 1,
+//         result: prevState.result + number,
+//       }));
+//     }
+//   };
+//   render() {
+//     return (
+//       <>
+//         {/* <button
+//           type=""
+//           onClick={this.handleMathClick.bind(this, 'subtraction', 1)}
+//         >
+//           -1
+//         </button>
+//         {/* ---------------------- */}
+//         {/* <button onClick={() => this.handleMathClick('subtraction' , 1)} type="">-1</button> */}
+//         {/* -------------------------------------------------------------------------- */}
+//         {/* w tym przypadku bind wywoluje nam this ale tez mozemy uzyc argumentow type i number poniewaz
+//          **************  bind(this, type, number /poniewaz w handleMathclick podalismy dwa argumenty) ************** */}
+//         {/* -------------------------------------------------------------------------------------------- */}
+//         {/* ------------------------------ */}
+//         {/* <button onClick={this.handleMathClick.bind(this, 'reset')} type="">
+//           Reset
+//         </button>
+//         <button
+//           type=""
+//           onClick={this.handleMathClick.bind(this, 'addition', 1)}
+//         >
+//           +1
+//         </button> */}
+
+//         <MathButton
+//           name="-1"
+//           number="1"
+//           type="subtraction"
+//           click={this.handleMathClick}
+//         />
+//         <MathButton
+//           name="reset"
+//           // number="0"
+//           type="reset"
+//           click={this.handleMathClick}
+//         />
+//         <MathButton
+//           name="+1"
+//           number="1"
+//           type="addition"
+//           click={this.handleMathClick}
+//         />
+//         <ResultPannel count={this.state.count} result={this.state.result} />
+//       </>
+//     );
+//   }
+// }
+
+// const MathButton = (props) => {
+//   const number = parseInt(props.number);
+//   // console.log(props);
+//   return (
+//     <button onClick={() => props.click(props.type, number)}>
+//       {props.name}
+//     </button>
+//   );
+// };
+
+// const ResultPannel = (props) => {
+//   return (
+//     <>
+//       <h1>
+//         Liczba kliknięć: {props.count} {props.count > 10 ? <span>Przekroczyłeś limit : 10</span> : null}
+//       </h1>
+//       <h1>Wynik: {props.result}</h1>
+//     </>
+//   );
+// };
+
+// const startValue = 0;
+// ReactDOM.render(
+//   <Counter result={startValue} />,
+//   document.getElementById('root')
+// );
+
+// ________________________________________________________________
+// ________________________________________________________________
+
+// PROPSY MAJA WARTOŚCI DOMYSLNE
+
+// static defaultProps {
+
+// }
+
+// ________________________________________________________________
+// ________________________________________________________________
+
+// 30. Projekt 1: checkbox, cz. 1 - wiadomość w zależności od zaznaczenia checkboxa
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+
+const PositiveMessage = () => <p>Możesz obejrzeć film. Zapraszamy!</p>;
+
+const NegativeMessage = () => (
+  <p>Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!</p>
+);
+
+class CheckboxAgeConfirmation extends React.Component {
   state = {
-    count: 0,
-    result: this.props.result,
+    isConfirmed: false,
   };
-  // this.handleMathClick = this.handleMathClick.bind(this);
-  handleMathClick = (type, number = 1) => {
-    // debugger
-    if (type === 'subtraction') {
-      this.setState((prevState) => ({
-        count: prevState.count + 1,
-        result: prevState.result - number,
-      }));
-    } else if (type === 'reset') {
-      this.setState((prevState) => ({
-        count: prevState.count + 1,
-        result: 0,
-      }));
-    } else if (type === 'addition') {
-      this.setState((prevState) => ({
-        count: prevState.count + 1,
-        result: prevState.result + number,
-      }));
+  handleCheckboxChange = () => {
+    this.setState({
+      isConfirmed: !this.state.isConfirmed,
+    });
+  };
+  displayMessage = () => {
+    if (this.state.isConfirmed) {
+      return <PositiveMessage />;
+    } else {
+      return <NegativeMessage />;
     }
   };
+
   render() {
     return (
       <>
-        {/* <button
-          type=""
-          onClick={this.handleMathClick.bind(this, 'subtraction', 1)}
-        >
-          -1
-        </button>
-        {/* ---------------------- */}
-        {/* <button onClick={() => this.handleMathClick('subtraction' , 1)} type="">-1</button> */}
-        {/* -------------------------------------------------------------------------- */}
-        {/* w tym przypadku bind wywoluje nam this ale tez mozemy uzyc argumentow type i number poniewaz
-         **************  bind(this, type, number /poniewaz w handleMathclick podalismy dwa argumenty) ************** */}
-        {/* -------------------------------------------------------------------------------------------- */}
-        {/* ------------------------------ */}
-        {/* <button onClick={this.handleMathClick.bind(this, 'reset')} type="">
-          Reset
-        </button>
-        <button
-          type=""
-          onClick={this.handleMathClick.bind(this, 'addition', 1)}
-        >
-          +1
-        </button> */}
-
-        <MathButton
-          name="-1"
-          number="1"
-          type="subtraction"
-          click={this.handleMathClick}
+        <h1>Kup bilet na horror roku!</h1>
+        <input
+          type="checkbox"
+          id="age"
+          onChange={this.handleCheckboxChange}
+          checked={this.state.isConfirmed}
         />
-        <MathButton
-          name="reset"
-          // number="0"
-          type="reset"
-          click={this.handleMathClick}
-        />
-        <MathButton
-          name="+1"
-          number="1"
-          type="addition"
-          click={this.handleMathClick}
-        />
-        <ResultPannel count={this.state.count} result={this.state.result} />
+        <label htmlFor="age">Mam co najmniej 16 lat</label>
+        {this.displayMessage()}
       </>
     );
   }
 }
-
-const MathButton = (props) => {
-  const number = parseInt(props.number);
-  // console.log(props);
-  return (
-    <button onClick={() => props.click(props.type, number)}>
-      {props.name}
-    </button>
-  );
-};
-
-const ResultPannel = (props) => {
-  return (
-    <>
-      <h1>
-        Liczba kliknięć: {props.count} {props.count > 10 ? <span>Przekroczyłeś limit : 10</span> : null}
-      </h1>
-      <h1>Wynik: {props.result}</h1>
-    </>
-  );
-};
-
-const startValue = 0;
-ReactDOM.render(
-  <Counter result={startValue} />,
-  document.getElementById('root')
-);
+ReactDOM.render(<CheckboxAgeConfirmation />, document.getElementById('root'));

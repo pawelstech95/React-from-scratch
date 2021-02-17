@@ -393,44 +393,64 @@
 // ________________________________________________________________
 // ________________________________________________________________
 // ________________________________________________________________
+const ValidationMessage = (props) => <p>{props.txt}</p>; 
+// Propsy przekazujemy z miejsca wywolania a strukture ustalamy w deklaracji
 
-const PositiveMessage = () => <p>Możesz obejrzeć film. Zapraszamy!</p>;
 
-const NegativeMessage = () => (
-  <p>Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!</p>
-);
-
-class CheckboxAgeConfirmation extends React.Component {
+class TicketShop extends React.Component {
   state = {
     isConfirmed: false,
+    isFormSubmited: false,
   };
   handleCheckboxChange = () => {
     this.setState({
       isConfirmed: !this.state.isConfirmed,
+      isFormSubmited: false,
     });
   };
+  handleFormSubmit = (e) => {
+    e.preventDefault();
+    if (!this.state.isFormSubmited) {
+      // musimy pobrac stan aktualny
+      this.setState({
+        isFormSubmited: true, //nie robimy !.t.s.isForm... ponieważ to nam bedzie przeładowywać cały czas
+      });
+    }
+  };
   displayMessage = () => {
-    if (this.state.isConfirmed) {
-      return <PositiveMessage />;
+    if (this.state.isFormSubmited) {
+      if (this.state.isConfirmed) {
+        return <ValidationMessage txt="Możesz obejrzeć film. zapraszamy!" />;
+      } else {
+        return (
+          <ValidationMessage txt="Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!" />
+        );
+      }
     } else {
-      return <NegativeMessage />;
+      return null;
     }
   };
 
   render() {
+    const {isConfirmed} = this.state
+    console.log(isConfirmed)
     return (
       <>
         <h1>Kup bilet na horror roku!</h1>
-        <input
-          type="checkbox"
-          id="age"
-          onChange={this.handleCheckboxChange}
-          checked={this.state.isConfirmed}
-        />
-        <label htmlFor="age">Mam co najmniej 16 lat</label>
+        <form onSubmit={this.handleFormSubmit}>
+          <input
+            type="checkbox"
+            id="age"
+            onChange={this.handleCheckboxChange}
+            checked={this.state.isConfirmed}
+          />
+          <label htmlFor="age">Mam co najmniej 16 lat</label>
+          <br />
+          <button type="submit">Kup bilet</button>
+        </form>
         {this.displayMessage()}
       </>
     );
   }
 }
-ReactDOM.render(<CheckboxAgeConfirmation />, document.getElementById('root'));
+ReactDOM.render(<TicketShop />, document.getElementById('root'));

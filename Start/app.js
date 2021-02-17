@@ -393,10 +393,43 @@
 // ________________________________________________________________
 // ________________________________________________________________
 // ________________________________________________________________
-const ValidationMessage = (props) => <p>{props.txt}</p>; 
+
+// const displayMessage = (isConfirmed, isFormSubmited) => {
+//   if (isFormSubmited) {
+//     if (isConfirmed) {
+//       return <ValidationMessage txt="Możesz obejrzeć film. zapraszamy!" />;
+//     } else {
+//       return (
+//         <ValidationMessage txt="Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!" />
+//       );
+//     }
+//   } else {
+//     return null;
+//   }
+// };
+
+const ValidationMessage = (props) => {
+  const { txt } = props;
+  return <p>{txt}</p>;
+};
 // Propsy przekazujemy z miejsca wywolania a strukture ustalamy w deklaracji
 
-
+const OrderForm = (props) => {
+  const {submit, isConfirmed, change} = props
+  return (
+    <form onSubmit={submit}>
+      <input
+        type="checkbox"
+        id="age"
+        onChange={change}
+        checked={isConfirmed}
+      />
+      <label htmlFor="age">Mam co najmniej 16 lat</label>
+      <br />
+      <button type="submit">Kup bilet</button>
+    </form>
+  );
+};
 class TicketShop extends React.Component {
   state = {
     isConfirmed: false,
@@ -432,22 +465,17 @@ class TicketShop extends React.Component {
   };
 
   render() {
-    const {isConfirmed} = this.state
-    console.log(isConfirmed)
+    const { isConfirmed, isFormSubmited } = this.state;
+    // console.log(isConfirmed);
     return (
       <>
         <h1>Kup bilet na horror roku!</h1>
-        <form onSubmit={this.handleFormSubmit}>
-          <input
-            type="checkbox"
-            id="age"
-            onChange={this.handleCheckboxChange}
-            checked={this.state.isConfirmed}
-          />
-          <label htmlFor="age">Mam co najmniej 16 lat</label>
-          <br />
-          <button type="submit">Kup bilet</button>
-        </form>
+        <OrderForm
+          change={this.handleCheckboxChange}
+          submit={this.handleFormSubmit}
+          checked={isConfirmed}
+        />
+
         {this.displayMessage()}
       </>
     );

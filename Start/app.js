@@ -510,6 +510,13 @@ class App extends React.Component {
       return console.log('sdsd');
     }
   };
+  handleBuy = () => {
+    console.log('22');
+    this.setState({
+      availableProducts: this.state.availableProducts - this.state.shoppingCart,
+      shoppingCart: 0,
+    });
+  };
 
   render() {
     return (
@@ -521,20 +528,21 @@ class App extends React.Component {
           {' '}
           -{' '}
         </button>
-        <span>
-          <h1> {this.state.shoppingCart} </h1>
-        </span>
+        <span>{this.state.shoppingCart}</span>
         <button
           disabled={
-            
-               this.state.shoppingCart === this.state.availableProducts ?
-               true : false
+            this.state.shoppingCart === this.state.availableProducts
+              ? true
+              : false
           }
           onClick={this.handleAddToCart}
         >
           {' '}
           +{' '}
         </button>
+        {this.state.shoppingCart > 0 && (
+          <button onClick={this.handleBuy}> Kup </button>
+        )}
       </>
     );
   }

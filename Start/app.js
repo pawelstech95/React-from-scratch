@@ -408,77 +408,135 @@
 //   }
 // };
 
-const ValidationMessage = (props) => {
-  const { txt } = props;
-  return <p>{txt}</p>;
-};
-// Propsy przekazujemy z miejsca wywolania a strukture ustalamy w deklaracji
+// const ValidationMessage = (props) => {
+//   const { txt } = props;
+//   return <p>{txt}</p>;
+// };
+// // Propsy przekazujemy z miejsca wywolania a strukture ustalamy w deklaracji
 
-const OrderForm = (props) => {
-  const {submit, isConfirmed, change} = props
-  return (
-    <form onSubmit={submit}>
-      <input
-        type="checkbox"
-        id="age"
-        onChange={change}
-        checked={isConfirmed}
-      />
-      <label htmlFor="age">Mam co najmniej 16 lat</label>
-      <br />
-      <button type="submit">Kup bilet</button>
-    </form>
-  );
-};
-class TicketShop extends React.Component {
+// const OrderForm = (props) => {
+//   const {submit, isConfirmed, change} = props
+//   return (
+//     <form onSubmit={submit}>
+//       <input
+//         type="checkbox"
+//         id="age"
+//         onChange={change}
+//         checked={isConfirmed}
+//       />
+//       <label htmlFor="age">Mam co najmniej 16 lat</label>
+//       <br />
+//       <button type="submit">Kup bilet</button>
+//     </form>
+//   );
+// };
+// class TicketShop extends React.Component {
+//   state = {
+//     isConfirmed: false,
+//     isFormSubmited: false,
+//   };
+//   handleCheckboxChange = () => {
+//     this.setState({
+//       isConfirmed: !this.state.isConfirmed,
+//       isFormSubmited: false,
+//     });
+//   };
+//   handleFormSubmit = (e) => {
+//     e.preventDefault();
+//     if (!this.state.isFormSubmited) {
+//       // musimy pobrac stan aktualny
+//       this.setState({
+//         isFormSubmited: true, //nie robimy !.t.s.isForm... ponieważ to nam bedzie przeładowywać cały czas
+//       });
+//     }
+//   };
+//   displayMessage = () => {
+//     if (this.state.isFormSubmited) {
+//       if (this.state.isConfirmed) {
+//         return <ValidationMessage txt="Możesz obejrzeć film. zapraszamy!" />;
+//       } else {
+//         return (
+//           <ValidationMessage txt="Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!" />
+//         );
+//       }
+//     } else {
+//       return null;
+//     }
+//   };
+
+//   render() {
+//     const { isConfirmed, isFormSubmited } = this.state;
+//     // console.log(isConfirmed);
+//     return (
+//       <>
+//         <h1>Kup bilet na horror roku!</h1>
+//         <OrderForm
+//           change={this.handleCheckboxChange}
+//           submit={this.handleFormSubmit}
+//           checked={isConfirmed}
+//         />
+
+//         {this.displayMessage()}
+//       </>
+//     );
+//   }
+// }
+// ReactDOM.render(<TicketShop />, document.getElementById('root'));
+
+// Projekt 2: koszyk, cz. 1 - struktura i logika aplikacji
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+
+class App extends React.Component {
   state = {
-    isConfirmed: false,
-    isFormSubmited: false,
+    availableProducts: 7,
+    shoppingCart: 5,
   };
-  handleCheckboxChange = () => {
+
+  handleRemoveFromCart = () => {
+    console.log('cl');
     this.setState({
-      isConfirmed: !this.state.isConfirmed,
-      isFormSubmited: false,
+      shoppingCart: this.state.shoppingCart - 1,
     });
   };
-  handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (!this.state.isFormSubmited) {
-      // musimy pobrac stan aktualny
+  handleAddToCart = () => {
+    if (this.state.shoppingCart < this.state.availableProducts) {
       this.setState({
-        isFormSubmited: true, //nie robimy !.t.s.isForm... ponieważ to nam bedzie przeładowywać cały czas
+        shoppingCart: this.state.shoppingCart + 1,
       });
-    }
-  };
-  displayMessage = () => {
-    if (this.state.isFormSubmited) {
-      if (this.state.isConfirmed) {
-        return <ValidationMessage txt="Możesz obejrzeć film. zapraszamy!" />;
-      } else {
-        return (
-          <ValidationMessage txt="Nie możesz obejrzeć filmu jeżeli nie masz ukończonych 16 lat!" />
-        );
-      }
     } else {
-      return null;
+      return console.log('sdsd');
     }
   };
 
   render() {
-    const { isConfirmed, isFormSubmited } = this.state;
-    // console.log(isConfirmed);
     return (
       <>
-        <h1>Kup bilet na horror roku!</h1>
-        <OrderForm
-          change={this.handleCheckboxChange}
-          submit={this.handleFormSubmit}
-          checked={isConfirmed}
-        />
-
-        {this.displayMessage()}
+        <button
+          disabled={this.state.shoppingCart ? false : true}
+          onClick={this.handleRemoveFromCart}
+        >
+          {' '}
+          -{' '}
+        </button>
+        <span>
+          <h1> {this.state.shoppingCart} </h1>
+        </span>
+        <button
+          disabled={
+            
+               this.state.shoppingCart === this.state.availableProducts ?
+               true : false
+          }
+          onClick={this.handleAddToCart}
+        >
+          {' '}
+          +{' '}
+        </button>
       </>
     );
   }
 }
-ReactDOM.render(<TicketShop />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

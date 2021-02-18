@@ -519,8 +519,9 @@ class App extends React.Component {
   };
 
   render() {
+    const { shoppingCart, availableProducts } = this.state;
     const style =
-      this.state.shoppingCart === 0
+      shoppingCart === 0
         ? {
             opacity: 0.3,
           }
@@ -528,29 +529,23 @@ class App extends React.Component {
     return (
       <>
         <button
-          disabled={this.state.shoppingCart ? false : true}
+          disabled={shoppingCart ? false : true}
           onClick={this.handleRemoveFromCart}
         >
           {' '}
           -{' '}
         </button>
 
-        <span style={style}>{this.state.shoppingCart}</span>
+        <span style={style}>{shoppingCart}</span>
 
         <button
-          disabled={
-            this.state.shoppingCart === this.state.availableProducts
-              ? true
-              : false
-          }
+          disabled={shoppingCart === availableProducts ? true : false}
           onClick={this.handleAddToCart}
         >
           {' '}
           +{' '}
         </button>
-        {this.state.shoppingCart > 0 && (
-          <button onClick={this.handleBuy}> Kup </button>
-        )}
+        {shoppingCart > 0 && <button onClick={this.handleBuy}> Kup </button>}
       </>
     );
   }

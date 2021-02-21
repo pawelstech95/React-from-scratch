@@ -558,16 +558,38 @@
 // ________________________________________________________________
 // ________________________________________________________________
 
-const Item = (props) => <li>{` owoc ${props.content}`}</li>;
-
+const Item = ({user}) => (
+  <div>
+    <h1>Użytkownik {user.name}</h1>
+    <h2>Ma {user.age}</h2>
+  </div>
+);
+const data = {
+  users: [
+    {
+      id: 1,
+      age: 29,
+      name: 'Arek',
+    },
+    {
+      id: 2,
+      age: 19,
+      name: 'Marek',
+    },
+    {
+      id: 3,
+      age: 39,
+      name: 'Darek',
+    },
+  ],
+};
 class ListItems extends React.Component {
-  state = {
-    items: ['jabłko', 'sliwka', 'gruszka'],
-  };
+  // state = {
+  //   items: ['jabłko', 'sliwka', 'gruszka'],
+  // };
   render() {
-    const Items = this.state.items.map((item) => (
-      <Item key={item} content={item} />
-    ));
+    const users = this.props.data.users;
+    const Items = users.map((user) => <Item key={user.id} user={user} />);
     return (
       <>
         <ul>{Items}</ul>
@@ -576,4 +598,4 @@ class ListItems extends React.Component {
   }
 }
 
-ReactDOM.render(<ListItems />, document.getElementById('root'));
+ReactDOM.render(<ListItems data={data} />, document.getElementById('root'));

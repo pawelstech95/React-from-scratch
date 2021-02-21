@@ -558,19 +558,20 @@
 // ________________________________________________________________
 // ________________________________________________________________
 
+const Item = (props) => <li>{` owoc ${props.content}`}</li>;
+
 class ListItems extends React.Component {
   state = {
     items: ['jabłko', 'sliwka', 'gruszka'],
   };
   render() {
+    const Items = this.state.items.map((item) => (
+      <Item key={item} content={item} />
+    ));
     return (
-      <div>
-        <ul>
-          {this.state.items.map((item) => (
-            <li key={item}>{`owoc ${item}`}</li>
-          ))}
-        </ul>
-      </div>
+      <>
+        <ul>{Items}</ul>
+      </>
     );
   }
 }

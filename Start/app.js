@@ -558,10 +558,14 @@
 // ________________________________________________________________
 // ________________________________________________________________
 
-const Item = ({user}) => (
-  <div>
+const Item = ({ user }) => (
+  <div className="userInfo">
     <h1>Użytkownik {user.name}</h1>
-    <h2>Ma {user.age}</h2>
+    <p>Informacje o użytkowniku: </p>
+    <p>
+      Wiek Użytkownika: <strong>{user.age}</strong>
+    </p>
+    <p>Płeć użytkownika: {user.sex}</p>
   </div>
 );
 const data = {
@@ -570,16 +574,19 @@ const data = {
       id: 1,
       age: 29,
       name: 'Arek',
+      sex: 'male',
     },
     {
       id: 2,
       age: 19,
       name: 'Marek',
+      sex: 'male',
     },
     {
       id: 3,
       age: 39,
-      name: 'Darek',
+      name: 'Marta',
+      sex: 'female',
     },
   ],
 };
@@ -588,7 +595,8 @@ class ListItems extends React.Component {
   //   items: ['jabłko', 'sliwka', 'gruszka'],
   // };
   render() {
-    const users = this.props.data.users;
+    let users = this.props.data.users;
+    users = users.filter((user) => user.sex === 'female')
     const Items = users.map((user) => <Item key={user.id} user={user} />);
     return (
       <>

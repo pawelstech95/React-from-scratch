@@ -489,65 +489,90 @@
 // ________________________________________________________________
 // ________________________________________________________________
 
-class App extends React.Component {
+// class App extends React.Component {
+//   state = {
+//     availableProducts: 7,
+//     shoppingCart: 5,
+//   };
+
+//   handleRemoveFromCart = () => {
+//     console.log('cl');
+//     this.setState({
+//       shoppingCart: this.state.shoppingCart - 1,
+//     });
+//   };
+//   handleAddToCart = () => {
+//     if (this.state.shoppingCart < this.state.availableProducts) {
+//       this.setState({
+//         shoppingCart: this.state.shoppingCart + 1,
+//       });
+//     } else {
+//       return console.log('sdsd');
+//     }
+//   };
+//   handleBuy = () => {
+//     console.log('22');
+//     this.setState({
+//       availableProducts: this.state.availableProducts - this.state.shoppingCart,
+//       shoppingCart: 0,
+//     });
+//   };
+
+//   render() {
+//     const { shoppingCart, availableProducts } = this.state;
+//     const style =
+//       shoppingCart === 0
+//         ? {
+//             opacity: 0.3,
+//           }
+//         : {};
+//     return (
+//       <>
+//         <button
+//           disabled={shoppingCart ? false : true}
+//           onClick={this.handleRemoveFromCart}
+//         >
+//           {' '}
+//           -{' '}
+//         </button>
+
+//         <span style={style}>{shoppingCart}</span>
+
+//         <button
+//           disabled={shoppingCart === availableProducts ? true : false}
+//           onClick={this.handleAddToCart}
+//         >
+//           {' '}
+//           +{' '}
+//         </button>
+//         {shoppingCart > 0 && <button onClick={this.handleBuy}> Kup </button>}
+//       </>
+//     );
+//   }
+// }
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// 38. Projekt 3: praca z tablicami, cz. 1: wyświetlanie elementów tablicy jako listy
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+// ________________________________________________________________
+
+class ListItems extends React.Component {
   state = {
-    availableProducts: 7,
-    shoppingCart: 5,
+    items: ['jabłko', 'sliwka', 'gruszka'],
   };
-
-  handleRemoveFromCart = () => {
-    console.log('cl');
-    this.setState({
-      shoppingCart: this.state.shoppingCart - 1,
-    });
-  };
-  handleAddToCart = () => {
-    if (this.state.shoppingCart < this.state.availableProducts) {
-      this.setState({
-        shoppingCart: this.state.shoppingCart + 1,
-      });
-    } else {
-      return console.log('sdsd');
-    }
-  };
-  handleBuy = () => {
-    console.log('22');
-    this.setState({
-      availableProducts: this.state.availableProducts - this.state.shoppingCart,
-      shoppingCart: 0,
-    });
-  };
-
   render() {
-    const { shoppingCart, availableProducts } = this.state;
-    const style =
-      shoppingCart === 0
-        ? {
-            opacity: 0.3,
-          }
-        : {};
     return (
-      <>
-        <button
-          disabled={shoppingCart ? false : true}
-          onClick={this.handleRemoveFromCart}
-        >
-          {' '}
-          -{' '}
-        </button>
-
-        <span style={style}>{shoppingCart}</span>
-
-        <button
-          disabled={shoppingCart === availableProducts ? true : false}
-          onClick={this.handleAddToCart}
-        >
-          {' '}
-          +{' '}
-        </button>
-        {shoppingCart > 0 && <button onClick={this.handleBuy}> Kup </button>}
-      </>
+      <div>
+        <ul>
+          {this.state.items.map((item) => (
+            <li key={item}>{`owoc ${item}`}</li>
+          ))}
+        </ul>
+      </div>
     );
   }
 }
-ReactDOM.render(<App />, document.getElementById('root'));
+
+ReactDOM.render(<ListItems />, document.getElementById('root'));

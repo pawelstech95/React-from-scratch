@@ -557,17 +557,6 @@
 // ________________________________________________________________
 // ________________________________________________________________
 // ________________________________________________________________
-
-const Item = ({ user }) => (
-  <div className="userInfo">
-    <h1>Użytkownik {user.name}</h1>
-    <p>Informacje o użytkowniku: </p>
-    <p>
-      Wiek Użytkownika: <strong>{user.age}</strong>
-    </p>
-    <p>Płeć użytkownika: {user.sex}</p>
-  </div>
-);
 const data = {
   users: [
     {
@@ -590,18 +579,62 @@ const data = {
     },
   ],
 };
+
+const Item = ({ user }) => (
+  <div className="userInfo">
+    <h1>Użytkownik {user.name}</h1>
+    <p>Informacje o użytkowniku: </p>
+    <p>
+      Wiek Użytkownika: <strong>{user.age}</strong>
+    </p>
+    <p>Płeć użytkownika: {user.sex}</p>
+  </div>
+);
 class ListItems extends React.Component {
-  // state = {
-  //   items: ['jabłko', 'sliwka', 'gruszka'],
-  // };
-  render() {
+  state = {
+    select: 'all',
+  };
+  handleUsersFilter = (option) => {
+    this.setState({
+      select: option,
+    });
+    console.log(option);
+  };
+  usersList = () => {
+    // debugger
     let users = this.props.data.users;
-    users = users.filter((user) => user.sex === 'female')
-    const Items = users.map((user) => <Item key={user.id} user={user} />);
+    switch (this.state.select) {
+      case 'all':
+        return users.map((user) => <Item user={user} key={user.id} />);
+      case 'female':
+        users = users.filter((user) => user.sex === 'female');
+        return users.map((user) => <Item user={user} key={user.id} />);
+      case 'male':
+        users = users.filter((user) => user.sex === 'male');
+        return users.map((user) => <Item user={user} key={user.id} />);
+      default:
+        return ' Brak danych';
+    }
+  };
+  render() {
+    // let users = this.props.data.users;
+    // users = users.filter((user) => user.sex === 'female');
+    // const Items = users.map((user) => <Item key={user.id} user={user} />);
+    // return <>{Items}</>;
+
     return (
-      <>
-        <ul>{Items}</ul>
-      </>
+      <div>
+        <button onClick={this.handleUsersFilter.bind(this, 'all')}>
+          Wszyscy
+        </button>
+        <button onClick={this.handleUsersFilter.bind(this, 'female')}>
+          Kobiety
+        </button>
+        <button onClick={this.handleUsersFilter.bind(this, 'male')}>
+          Mężczyźni
+        </button>
+        {this.usersList()}
+      </div>
     );
   }
 }

@@ -657,11 +657,12 @@ class App extends React.Component {
       { id: 6, name: 'chleb', active: false },
     ],
   };
+
   render() {
     return (
       <>
         <Header items={this.state.items} />
-        <ListItems />
+        <ListItems items={this.state.items} />
       </>
     );
   }

@@ -684,4 +684,4 @@ class App extends React.Component {
     );
   }
 }
- 
+ //Checkout

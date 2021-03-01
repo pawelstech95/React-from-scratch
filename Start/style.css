@@ -36,3 +36,10 @@ li:nth-child(even) {
 li:nth-child(odd) {
   border-color: #ccc;
 }
+
+.enabled{
+font-weight: bold;
+}
+.disabled{
+color: gray;
+}

@@ -792,7 +792,11 @@
 
 const Cash = (props) => {
   const value = ((props.cash / props.ratio) * props.price).toFixed(2);
-  return <div>Wartość w euro: {props.cash <= 0 ? '' : value}</div>;
+  return (
+    <div>
+      {props.title} {props.cash <= 0 ? '' : value}
+    </div>
+  );
 };
 
 class ExchangeCounter extends React.Component {

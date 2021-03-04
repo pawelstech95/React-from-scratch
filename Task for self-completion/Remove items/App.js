@@ -18,7 +18,6 @@ class List extends React.Component {
   };
   handleRemoveButton(id) {
     // JEZELI ROBIMY BIND TO MUSIMY PRZEKAZAĆ ID
-    // console.log(id)
 
     const newArray = [...this.state.users]; // Mogłem nazwać users to wtedy w setState ({users: users }) === ({ users })
     const index = newArray.findIndex((user) => user.id === id); // WAŻNE
@@ -32,8 +31,8 @@ class List extends React.Component {
   //  ZAMIAST METODY SPLICE MOZEMY UZYC PONIZSZYCH
   //
   //
-  // let users = Array.from(this.state.people);
-  //let users = this.state.users.slice()
+  //    let users = Array.from(this.state.people);
+  //    let users = this.state.users.slice()
   //
   //
   // ZAMIAST IF !== -1    --->
@@ -41,22 +40,11 @@ class List extends React.Component {
   //
   // users = users.filter(user => id !== user.id)
 
-  // handleAddButton = (e) => {
-  //   const value = this.state.users[1];
-  //   let newArray = [...this.state.users];
-  //   let index = newArray.indexOf(value);
-  //   console.log(value);
-  //   if (index !== -1) {
-  //     this.setState({ users: newArray });
-  //     this.setState((prevState) => ({
-  //       users: [...prevState.users, this.state.value],
-  //     }));
-  //   } else (this.state.value === '')(alert('Musisz coś wpisać!'));
-  // };
   handleChange = (e) => {
     this.setState({
       value: e.target.value,
     });
+    console.log(e.target.value);
   };
 
   render() {

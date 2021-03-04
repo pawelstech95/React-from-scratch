@@ -5,19 +5,13 @@ body {
 
 input[type='text'],
 button {
-  padding: 5px 10px;
+  width: 150px;
+  padding: 10px 30px;
   border: black 2px solid;
-  font-size: 5px;
+  font-size: 15px;
   outline: none;
-  float: right;
 }
 html {
   font-size: 20px;
   font-family: serif;
-}
-.addUser input, .addUser button{
-  padding: 5px 10px;
-  font-size: 10px;
-  outline: none;
-  
 }

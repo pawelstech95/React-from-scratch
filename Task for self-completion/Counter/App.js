@@ -14,12 +14,10 @@ const Addition = (props) => {
 class Counter extends React.Component {
   state = {
     value: 1,
-    name: this.props.name,
   };
   handleSubClick = () => {
     {
       this.setState({
-        name: this.state.name,
         value: this.state.value - 1,
       });
     }
@@ -27,7 +25,6 @@ class Counter extends React.Component {
   handleAddClick = () => {
     {
       this.setState({
-        name: this.state.name,
         value: this.state.value + 1,
       });
     }
@@ -35,11 +32,8 @@ class Counter extends React.Component {
   render() {
     return (
       <>
-        <Subtruction
-          click={this.handleSubClick}
-          name={(this.state.name = 'Sub')}
-        />
-        <Addition click={this.handleAddClick} name={this.state.name} />
+        <Subtruction click={this.handleSubClick} />
+        <Addition click={this.handleAddClick} />
 
         <div>Your score: {this.state.value}</div>
       </>

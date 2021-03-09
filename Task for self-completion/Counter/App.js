@@ -1,11 +1,11 @@
 const Subtruction = (props) => (
-  <button onClick={props.click} name={props.name}>
+  <button onClick={props.click} >
     Subtract -1
   </button>
 );
 const Addition = (props) => {
   return (
-    <button onClick={props.click} name={props.name}>
+    <button onClick={props.click}>
       Add +1
     </button>
   );

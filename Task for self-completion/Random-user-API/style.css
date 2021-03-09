@@ -1,0 +1,17 @@
+body {
+  text-align: center;
+  overflow: hidden;
+}
+
+input[type='text'],
+button {
+  width: 150px;
+  padding: 10px 30px;
+  border: black 2px solid;
+  font-size: 15px;
+  outline: none;
+}
+html {
+  font-size: 20px;
+  font-family: serif;
+}

@@ -854,20 +854,40 @@ class App extends React.Component {
     this.state = {
       number: 0,
     };
-    console.log('Wywołać metodę render');
+    console.log('Wywołać metodę constructor');
   }
   componentWillMount() {
     console.log('wywołana componentWillMount');
   }
   componentDidMount() {
     console.log('Wywołana componentDidMount');
+    this.setState({
+      number: 1,
+    });
   }
   componentDidUpdate() {
     console.log('Wywołana componentDidUpdate');
   }
   render() {
     console.log('Wywołana metoda render');
-    return <p>lifecycle - montowanie komponentu</p>;
+    return (
+      <>
+        <p>lifecycle - montowanie komponentu</p>
+        <Child />
+      </>
+    );
+  }
+}
+class Child extends React.Component {
+  componentDidMount() {
+    console.log('Wywołana componentDidMount w komponencie Child');
+    // this.setState({
+
+    // })
+  }
+  render() {
+    console.log('--------------- Wywołana metoda render w komponencie Child');
+    return <p>Dziecko</p>;
   }
 }
 

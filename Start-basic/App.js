@@ -897,61 +897,98 @@
 
 // Button lifecycle
 
-class App extends React.Component {
-  state = {
-    status: true,
-  };
+// class App extends React.Component {
+//   state = {
+//     status: true,
+//   };
 
-  componentDidMount() {
-    console.log('Aplikacja zamontowana');
-  }
+//   componentDidMount() {
+//     console.log('Aplikacja zamontowana');
+//   }
 
-  componentDidUpdate() {
-    console.log('Aplikacja zaktualizowana');
-  }
+//   componentDidUpdate() {
+//     console.log('Aplikacja zaktualizowana');
+//   }
 
-  render() {
-    console.log('renderowanie aplikacji');
-    return (
-      <div>
-        <button onClick={() => this.setState({ status: !this.state.status })}>
-          Przełącz
-        </button>
-        <Child1 status={this.state.status} />
-        {this.state.status && <Child2 />}
-      </div>
-    );
-  }
-}
-class Child1 extends React.Component {
-  componentDidMount() {
-    console.log('Child1 zamontowana');
-  }
+//   render() {
+//     console.log('renderowanie aplikacji');
+//     return (
+//       <div>
+//         <button onClick={() => this.setState({ status: !this.state.status })}>
+//           Przełącz
+//         </button>
+//         <Child1 status={this.state.status} />
+//         {this.state.status && <Child2 />}
+//       </div>
+//     );
+//   }
+// }
+// class Child1 extends React.Component {
+//   componentDidMount() {
+//     console.log('Child1 zamontowana');
+//   }
 
-  componentDidUpdate() {
-    console.log('Child1 zaktualizowana');
-  }
-  render() {
-    console.log('renderowanie child1');
-    return <div>{String(this.props.status)}</div>;
-  }
-}
+//   componentDidUpdate() {
+//     console.log('Child1 zaktualizowana');
+//   }
+//   render() {
+//     console.log('renderowanie child1');
+//     return <div>{String(this.props.status)}</div>;
+//   }
+// }
 
-class Child2 extends React.Component {
-  componentDidMount() {
-    console.log('Child2 zamontowana');
-  }
+// class Child2 extends React.Component {
+//   componentDidMount() {
+//     console.log('Child2 zamontowana');
+//   }
 
-  componentDidUpdate() {
-    console.log('Child2 zaktualizowana');
-  }
-  componentWillUnmount() {
-    console.log('Child2 odmontowany');
-  }
-  render() {
-    console.log('renderowanie child2');
-    return <div>komponent Child2 zamontowany</div>;
-  }
-}
+//   componentDidUpdate() {
+//     console.log('Child2 zaktualizowana');
+//   }
+//   componentWillUnmount() {
+//     console.log('Child2 odmontowany');
+//   }
+//   render() {
+//     console.log('renderowanie child2');
+//     return <div>komponent Child2 zamontowany</div>;
+//   }
+// }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// class Counter extends React.Component {
+//   state = {
+//     result: 1,
+//     ratio: 2,
+//   };
+//   handleMultiplication = () => {
+//     this.setState((state) => ({
+//       result: state.result * state.ratio,
+//     }));
+//   };
+//   componentDidUpdate() {
+//     console.log('componentDidUpdate');
+//     console.log(this.state);
+//     if (this.state.result > 1000 && this.state.ratio === 2) {
+//       this.setState({
+//         ratio: 0.5,
+//       });
+//     } else if (this.state.result < 1 && this.state.ratio === 0.5) {
+//       this.setState({
+//         ratio: 2,
+//       });
+//     }
+//   }
+//   render() {
+//     return (
+//       <div>
+//         <button
+//           onClick={this.handleMultiplication}
+//         >{`Pomnóż przez ${this.state.ratio}`}</button>
+//         <p>{this.state.result}</p>
+//       </div>
+//     );
+//   }
+// }
+
+ReactDOM.render(<Counter />, document.getElementById('root'));

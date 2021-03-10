@@ -848,46 +848,109 @@
 // ________________________________________________________________
 // ________________________________________________________________
 
+// class App extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       number: 0,
+//     };
+//     console.log('Wywołać metodę constructor');
+//   }
+//   componentWillMount() {
+//     console.log('wywołana componentWillMount');
+//   }
+//   componentDidMount() {
+//     console.log('Wywołana componentDidMount');
+//     this.setState({
+//       number: 1,
+//     });
+//   }
+//   componentDidUpdate() {
+//     console.log('Wywołana componentDidUpdate');
+//   }
+//   render() {
+//     console.log('Wywołana metoda render');
+//     return (
+//       <>
+//         <p>lifecycle - montowanie komponentu</p>
+//         <Child />
+//       </>
+//     );
+//   }
+// }
+// class Child extends React.Component {
+//   componentDidMount() {
+//     console.log('Wywołana componentDidMount w komponencie Child');
+//     // this.setState({
+
+//     // })
+//   }
+//   render() {
+//     console.log('--------------- Wywołana metoda render w komponencie Child');
+//     return <p>Dziecko</p>;
+//   }
+// }
+
+// ReactDOM.render(<App />, document.getElementById('root'));
+
+// -----------------------------------
+
+// Button lifecycle
+
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      number: 0,
-    };
-    console.log('Wywołać metodę constructor');
-  }
-  componentWillMount() {
-    console.log('wywołana componentWillMount');
-  }
+  state = {
+    status: true,
+  };
+
   componentDidMount() {
-    console.log('Wywołana componentDidMount');
-    this.setState({
-      number: 1,
-    });
+    console.log('Aplikacja zamontowana');
   }
+
   componentDidUpdate() {
-    console.log('Wywołana componentDidUpdate');
+    console.log('Aplikacja zaktualizowana');
   }
+
   render() {
-    console.log('Wywołana metoda render');
+    console.log('renderowanie aplikacji');
     return (
-      <>
-        <p>lifecycle - montowanie komponentu</p>
-        <Child />
-      </>
+      <div>
+        <button onClick={() => this.setState({ status: !this.state.status })}>
+          Przełącz
+        </button>
+        <Child1 status={this.state.status} />
+        {this.state.status && <Child2 />}
+      </div>
     );
   }
 }
-class Child extends React.Component {
+class Child1 extends React.Component {
   componentDidMount() {
-    console.log('Wywołana componentDidMount w komponencie Child');
-    // this.setState({
+    console.log('Child1 zamontowana');
+  }
 
-    // })
+  componentDidUpdate() {
+    console.log('Child1 zaktualizowana');
   }
   render() {
-    console.log('--------------- Wywołana metoda render w komponencie Child');
-    return <p>Dziecko</p>;
+    console.log('renderowanie child1');
+    return <div>{String(this.props.status)}</div>;
+  }
+}
+
+class Child2 extends React.Component {
+  componentDidMount() {
+    console.log('Child2 zamontowana');
+  }
+
+  componentDidUpdate() {
+    console.log('Child2 zaktualizowana');
+  }
+  componentWillUnmount() {
+    console.log('Child2 odmontowany');
+  }
+  render() {
+    console.log('renderowanie child2');
+    return <div>komponent Child2 zamontowany</div>;
   }
 }
 

@@ -893,9 +893,9 @@ class Child extends React.Component {
 
 ReactDOM.render(<App />, document.getElementById('root'));
 
------------------------------------
+// -----------------------------------
 
-Button lifecycle
+// Button lifecycle
 
 class App extends React.Component {
   state = {
@@ -994,9 +994,9 @@ componentDidUpdate() {
 ReactDOM.render(<Counter />, document.getElementById('root'));
 
 // Lifecycle zegar
-----------------------------------------------------
-----------------------------------------------------
-----------------------------------------------------
+// ----------------------------------------------------
+// ----------------------------------------------------
+// ----------------------------------------------------
 class Clock extends React.Component {
   interval = '';
 

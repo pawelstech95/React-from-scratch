@@ -1,51 +1,34 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
-// pseudo rosnaca baza danych - symuluje zewnetrzne dane
-const data = [
-  { id: 1, title: 'Wiadomość nr 1', body: 'Zawartość wiadomości nr 1...' },
-  { id: 2, title: 'Wiadomość nr 2', body: 'Zawartość wiadomości nr 2...' },
-];
+import Word from './Word';
 
-setInterval(() => {
-  const index = data.length + 1;
-  data.push({
-    id: index,
-    title: `Wiadomość nr ${index}`,
-    body: `Zawartość wiadomości nr ${index}...`,
-  });
-  // console.log(data);
-}, 4000);
-
-class App extends Component {
+class App extends React.Component {
   state = {
-    // comments: data // tworzymy referencje a chcemy pobrać dane
-    comments: [...data], // pobieramy i tworzymy kopię tablicy - pobieramy teraz dane od razu - state nnie jest miejscem zeby pobierac dane poczatkowe
+    // zadanie AJAX - asynchroniczne zadanie do serwera
+    words: [],
+    isLoaded: false,
   };
-  getData = () => {
-    if (this.state.comments.length !== data.length) {
-      console.log('aktualizacja');
-      this.setState({
-        comments: [...data], // znowu pobieramy tablice ale ni ebudujemy referencji...pobieramy dane i budujemmy nowa tablice
+  componentDidMount() { // dobra miejsce na wczytanie danych poraz pierwszy 
+    setTimeout(this.fetchData, 3000);
+  }
+  fetchData = () => {
+    fetch('data/words.json')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          words: data.words,
+          isLoaded: true,
+        });
       });
-    } else {
-      console.log('dane takie same, nie aktualizuje');
-    }
   };
-  componentDidMount() {
-    this.idI = setInterval(this.getData, 3000); // metode clearinterval musi odwolac sie do id
-  }
-  componentWillUnmount() {
-    clearInterval(this.idI);
-  }
   render() {
-    const comments = this.state.comments.map((comment) => (
-      <div key={comment.id}>
-        <h4>{comment.title}</h4>
-        <div>{comment.body}</div>
-      </div>
+    console.log('render');
+    const words = this.state.words.map((word) => (
+      <Word key={word.id} english={word.en} polish={word.pl} />
     ));
-    console.log(comments);
-    return <div className="App">{comments.reverse()}</div>; // funkcja reverse zmienia kolejność wyświetlania
+
+    return <ul>{this.state.isLoaded ? words : 'Wczyuję dane'}</ul>;
   }
 }
+
 export default App;

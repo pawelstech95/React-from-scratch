@@ -1,10 +1,6 @@
 // import React from 'react';
 // import './App.css';
 // import Word from './Word';
-//
-//------------------
-//       GET_DATA
-//------------------
 
 // class App extends React.Component {
 //   state = {
@@ -34,60 +30,44 @@
 //     return <ul>{this.state.isLoaded ? words : 'Wczyuję dane'}</ul>;
 //   }
 // }
-//
-//
+
+// export default App;
+
 // Projekt: Obiekt XMLHttpRequest
 // ------------------------------
 // ------------------------------
 
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
+import Word from './Word';
 
-class App extends Component {
+class App extends React.Component {
   state = {
-    users: [],
+    // zadanie AJAX - asynchroniczne zadanie do serwera
+    words: [],
+    isLoaded: false,
   };
   componentDidMount() {
-    // tutaj powinnismy pobierac dane po pobieraja sie raz na starcie
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-
-    xhr.onload = () => {
-      console.log(xhr.status);
-      if (xhr.status === 200) {
-        const users = JSON.parse(xhr.response);
-        console.log(users);
-        this.setState({
-          users,
-        });
-      }
-      // console.log(xhr.response);
-    };
-    xhr.send(null);
+    // dobra miejsce na wczytanie danych po raz pierwszy
+    setTimeout(this.fetchData, 3000);
   }
-  //
-  //
-  //    ALTERNATYWA DLA XHR.ONLOAD --- MOZEMY OBSŁUŻYĆ TUTAJ NP ERROR
-  //
-  //
-  //  xhr.addEventListener('load', ()=>{console.log(xhr.status);
-  // if (xhr.status === 200) {
-  //   const users = JSON.parse(xhr.response);
-  //   console.log(users);
-  //   this.setState({
-  //     users,
-  //   });
-  // }})
-  //
-
+  fetchData = () => {
+    fetch('data/words.json')
+      .then((response) => response.json())
+      .then((data) => {
+        this.setState({
+          words: data.words,
+          isLoaded: true,
+        });
+      });
+  };
   render() {
-    const users = this.state.users.map((user) => (
-      <div key={user.id}>
-        <h4>{user.name}</h4>
-        <p>{user.address.city}</p>
-      </div>
+    console.log('render');
+    const words = this.state.words.map((word) => (
+      <Word key={word.id} english={word.en} polish={word.pl} />
     ));
-    return <div>{users}</div>;
+
+    return <ul>{this.state.isLoaded ? words : 'Wczyuję dane'}</ul>;
   }
 }
 export default App;

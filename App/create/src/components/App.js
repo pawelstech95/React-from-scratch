@@ -8,7 +8,7 @@ class App extends React.Component {
     words: [],
     isLoaded: false,
   };
-  componentDidMount() { // dobra miejsce na wczytanie danych poraz pierwszy 
+  componentDidMount() { // dobra miejsce na wczytanie danych po raz pierwszy 
     setTimeout(this.fetchData, 3000);
   }
   fetchData = () => {

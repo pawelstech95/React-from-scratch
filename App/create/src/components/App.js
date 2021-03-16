@@ -40,54 +40,102 @@
 // ------------------------------
 // ------------------------------
 
+// import React, { Component } from 'react';
+// import './App.css';
+
+// class App extends Component {
+//   state = {
+//     users: [],
+//   };
+//   componentDidMount() {
+//     // tutaj powinnismy pobierac dane po pobieraja sie raz na starcie
+//     const xhr = new XMLHttpRequest();
+//     xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
+
+//     xhr.onload = () => {
+//       console.log(xhr.status);
+//       if (xhr.status === 200) {
+//         const users = JSON.parse(xhr.response);
+//         console.log(users);
+//         this.setState({
+//           users,
+//         });
+//       }
+//       // console.log(xhr.response);
+//     };
+//     xhr.send(null);
+//   }
+//   //
+//   //
+//   //    ALTERNATYWA DLA XHR.ONLOAD --- MOZEMY OBSŁUŻYĆ TUTAJ NP ERROR
+//   //
+//   //
+//   //  xhr.addEventListener('load', ()=>{console.log(xhr.status);
+//   // if (xhr.status === 200) {
+//   //   const users = JSON.parse(xhr.response);
+//   //   console.log(users);
+//   //   this.setState({
+//   //     users,
+//   //   });
+//   // }})
+//   //
+
+//   render() {
+//     const users = this.state.users.map((user) => (
+//       <div key={user.id}>
+//         <h4>{user.name}</h4>
+//         <p>{user.address.city}</p>
+//       </div>
+//     ));
+//     return <div>{users}</div>;
+//   }
+// }
+// export default App;
+
+//
+// Fetch w praktyce
+//    Wyświetlanie 5 losiwych urzytkownikow
+//
+//
+//
 import React, { Component } from 'react';
 import './App.css';
+import UsersList from './UsersList';
+import ButtonFetchUsers from './ButtonFetchUsers';
+
+const API = 'https://randomuser.me/api/?results=5';
 
 class App extends Component {
   state = {
-    users: [],
+    users: null,
   };
-  componentDidMount() {
-    // tutaj powinnismy pobierac dane po pobieraja sie raz na starcie
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', 'https://jsonplaceholder.typicode.com/users', true);
-
-    xhr.onload = () => {
-      console.log(xhr.status);
-      if (xhr.status === 200) {
-        const users = JSON.parse(xhr.response);
-        console.log(users);
+  handleDataFetch = () => {
+    // console.log('click');
+    fetch(API)
+      .then((response) => {
+        if (response.ok) {
+          // console.log(response);
+          return response;
+        }
+        throw Error(response.status);
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
         this.setState({
-          users,
+          users: data.results,
         });
-      }
-      // console.log(xhr.response);
-    };
-    xhr.send(null);
-  }
-  //
-  //
-  //    ALTERNATYWA DLA XHR.ONLOAD --- MOZEMY OBSŁUŻYĆ TUTAJ NP ERROR
-  //
-  //
-  //  xhr.addEventListener('load', ()=>{console.log(xhr.status);
-  // if (xhr.status === 200) {
-  //   const users = JSON.parse(xhr.response);
-  //   console.log(users);
-  //   this.setState({
-  //     users,
-  //   });
-  // }})
-  //
-
+      })
+      .catch((error) => console.log(error + ' something gone wrong'));
+  };
   render() {
-    const users = this.state.users.map((user) => (
-      <div key={user.id}>
-        <h4>{user.name}</h4>
-        <p>{user.address.city}</p>
+    const users = this.state.users;
+    return (
+      <div>
+        <ButtonFetchUsers click={this.handleDataFetch} />
+        {users ? <UsersList users={users} /> : users}
       </div>
-    ));
-    return <div>{users}</div>;
+    );
   }
 }
 export default App;

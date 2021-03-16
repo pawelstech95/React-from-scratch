@@ -103,11 +103,11 @@ import './App.css';
 import UsersList from './UsersList';
 import ButtonFetchUsers from './ButtonFetchUsers';
 
-const API = 'https://randomuser.me/api/?results=5';
+const API = 'https://randomuser.me/api/?results=1';
 
 class App extends Component {
   state = {
-    users: null,
+    users: [],
   };
   handleDataFetch = () => {
     // console.log('click');
@@ -121,10 +121,15 @@ class App extends Component {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
-        this.setState({
-          users: data.results,
-        });
+        // console.log(data);
+        // this.setState({
+        //  users: data.results, // dodawalismy 5 losowych użytkownikow
+        // });
+
+        const user = data.results;
+        this.setState((prevState) => ({
+          users: prevState.users.concat(user),
+        }));
       })
       .catch((error) => console.log(error + ' something gone wrong'));
   };
@@ -133,7 +138,8 @@ class App extends Component {
     return (
       <div>
         <ButtonFetchUsers click={this.handleDataFetch} />
-        {users ? <UsersList users={users} /> : users}
+        {/* {users ? <UsersList users={users} /> : users}  robilismy to jak w state byl null */}
+        {users.length > 0 ? <UsersList users={users} /> : users}
       </div>
     );
   }

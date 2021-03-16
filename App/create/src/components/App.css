@@ -1,4 +1,4 @@
-body {
+/* body {
   font-size: 36px;
   margin: 0;
   padding: 0;
@@ -8,9 +8,18 @@ body {
 p {
   font-family: 'Times New Roman', Times, serif;
 }
-
-button {
+ */
+/* button {
   border: 2px solid black;
   padding: 10px 20px;
-  background-color: cornsilk;
+  background-color: rgb(223, 215, 215);
+  
+} */
+.users {
+  text-align: center;
+}
+.users li {
+  border-top: 2px solid #000;
+  list-style: none;
+  padding-top: 20px;
 }
